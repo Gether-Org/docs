@@ -1,0 +1,35 @@
+---
+title: 'Stack Technique'
+description: 'Les technologies modernes et robustes qui propulsent Sledge'
+icon: 'layer-group'
+---
+
+Pour garantir des performances optimales, une sécurité sans faille et une expérience utilisateur fluide lors des migrations de données, nous avons sélectionné une stack technique moderne, éprouvée et hautement scalable.
+
+## Détail de l'architecture
+
+### Frontend : Next.js & Tailwind CSS
+
+L'interface utilisateur est le point d'entrée de Sledge. Elle se doit d'être réactive, surtout pour notre système de *Drag & Drop* permettant de relier visuellement les clouds providers.
+
+* **Next.js (v16.0.10)** : nous offre un framework React robuste, permettant un rendu rapide (SSR/SSG) et une structure de projet claire.
+* **Tailwind CSS (v4)** : nous permet de concevoir rapidement une interface sur-mesure, cohérente avec notre identité visuelle (mode sombre natif, composants épurés), tout en gardant un code maintenable.
+
+### Backend : Go (Golang)
+
+Le cœur de Sledge (les API Gateway, la logique de migration et de synchronisation) est développé en **Go (v1.25.0)**.
+Déplacer des gigaoctets de données entre un bucket AWS S3 et un Azure Blob Storage nécessite un langage compilé rapide et léger. Grâce aux *Goroutines*, Go gère parfaitement l'exécution de tâches lourdes en parallèle (concurrence) sans surcharger les serveurs. 
+
+### Base de données & Cache : PostgreSQL & Redis
+
+Pour stocker les informations sensibles, les configurations des clouds providers (chiffrées), l'historique des migrations et les logs de synchronisation, nous utilisons **PostgreSQL**. C'est le standard de l'industrie pour les bases de données relationnelles, garantissant l'intégrité et la sécurité de nos données.
+
+Pour optimiser les performances de notre API et gérer le cache, la stack intègre également **Redis (v7-alpine)**.
+
+### Déploiement : Docker & Docker Compose
+
+L'ensemble de l'infrastructure Sledge est conteneurisé. Le backend tourne sur un environnement minimaliste et sécurisé basé sur **Alpine Linux 3.19**.
+L'utilisation de **Docker** et **Docker Compose** nous assure que l'application s'exécute exactement de la même manière en environnement de développement local que sur nos serveurs de production. Cela permet de :
+
+1. Faciliter l'intégration de nouveaux développeurs sur le projet (le backend, la base de données PostgreSQL et Redis se lancent ensemble via un réseau dédié).
+2. Isoler les services pour plus de sécurité et de stabilité.
