@@ -1,0 +1,36 @@
+---
+title: 'Page de Connexion'
+description: 'Authentification sécurisée pour accéder à votre interface Sledge'
+icon: 'right-to-bracket'
+---
+
+La page de connexion (Login) est le point d'entrée sécurisé pour tous les utilisateurs de Sledge. Elle a été conçue pour être rapide, intuitive et offrir plusieurs méthodes d'authentification.
+
+<Frame>
+  <img src="/images/login.png" alt="Interface de connexion Sledge" />
+</Frame>
+
+## Fonctionnalités de l'interface
+
+Le design adopte une structure en deux colonnes (Split Screen) avec un thème sombre élégant et notre bleu identitaire. La partie gauche est dédiée à l'interaction :
+
+<CardGroup cols={2}>
+  <Card title="Authentification Classique" icon="envelope">
+    Connexion standard via **Email et Mot de passe**. Un lien "Forgot your password?" permet une récupération rapide du compte.
+  </Card>
+  <Card title="Social Login (OAuth)" icon="github">
+    Connexion en un clic (Single Sign-On) via des fournisseurs tiers sécurisés : **Google** et **GitHub**.
+  </Card>
+</CardGroup>
+
+## Fonctionnement Technique
+
+Cette page fait le pont entre notre interface utilisateur et notre architecture de sécurité backend :
+
+1. **Frontend (Next.js) :** La gestion des sessions, de la redirection et des fournisseurs OAuth (Google/GitHub) est gérée par **NextAuth.js (v5)**.
+2. **Backend (Go) :** Pour l'authentification classique, les identifiants sont envoyés à notre API Go, qui les compare avec notre base de données **PostgreSQL**.
+3. **Sécurité :** Une fois l'utilisateur vérifié, un token sécurisé **JWT** (`golang-jwt/jwt/v5`) est généré et renvoyé au client pour authentifier ses actions futures (comme lancer une migration).
+
+<Note>
+  **Accès aux nouveaux utilisateurs :** Un lien *Sign up* est disponible en bas de l'interface pour rediriger vers la page d'inscription (voir la section `Register`).
+</Note>

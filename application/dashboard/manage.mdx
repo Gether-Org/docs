@@ -1,0 +1,46 @@
+---
+title: 'Gérer les Providers (Manage)'
+description: 'Ajouter, connecter et interagir avec vos fournisseurs cloud'
+icon: 'network-wired'
+---
+
+L'interface de gestion (Manage) est le cœur interactif de Sledge. C'est ici que vous définissez visuellement l'architecture de vos migrations.
+
+<Frame>
+  <img src="/images/manage-nodes.png" alt="Interface de nœuds Sledge" />
+</Frame>
+
+## Interface Nodale (Drag & Drop)
+
+L'espace de travail utilise un système de graphe interactif :
+* **Nœud Sledge :** Le point central de votre infrastructure.
+* **Nœuds Providers :** Glissez, déposez et reliez vos fournisseurs (ex: AWS, Azure, Scaleway) directement au nœud Sledge pour établir une connexion.
+* **Contrôles :** En bas à gauche, des outils permettent de zoomer, dézoomer ou centrer la vue sur vos ressources.
+
+## Interactions avec les Nœuds
+
+Une fois vos providers ajoutés à l'espace de travail, plusieurs interactions sont possibles directement depuis les nœuds :
+
+### Explorer les données (Double-clic)
+En double-cliquant sur un nœud provider, un panneau latéral s'ouvre sur la droite de l'écran. Il vous permet de lister l'ensemble des "Buckets" (espaces de stockage) disponibles et de prévisualiser directement les fichiers qui s'y trouvent.
+
+<Frame>
+  <img src="/images/manage-bucket.png" alt="Contenu d'un Bucket" />
+</Frame>
+
+### Paramètres du Provider (Clic droit)
+Un clic droit sur un nœud ouvre un menu contextuel rapide. Depuis ce menu, vous pouvez accéder aux paramètres spécifiques du provider pour le **renommer**, modifier ses accès ou le **supprimer** de votre espace de travail.
+
+## Ajouter un Provider
+
+Pour ajouter un nouveau fournisseur cloud, cliquez sur le bouton d'action principal (le bouton bleu **"+"** en bas à droite).
+
+<Frame>
+  <img src="/images/manage-import.png" alt="Importation d'un provider" />
+</Frame>
+
+### Importation depuis un fichier
+La méthode la plus rapide et sécurisée pour ajouter un provider (ex: Amazon AWS) est d'utiliser la modale **"Import From File"** :
+1. Sélectionnez le fournisseur cible dans le menu déroulant.
+2. Glissez-déposez votre fichier de configuration (formats supportés : **JSON, YAML, CSV**, etc.).
+3. Sledge analyse automatiquement le fichier, stocke les identifiants de manière sécurisée en base de données, et instancie le nouveau nœud sur votre espace de travail.

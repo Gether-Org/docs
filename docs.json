@@ -34,12 +34,17 @@
           {
             "group": "Application",
             "pages": [
-              "application/home",
               "application/login",
               "application/register",
               "application/profil",
-              "application/settings",
-              "application/dashboard"
+              {
+                "group": "dashboard",
+                "pages": [
+                  "application/dashboard/accueil",
+                  "application/dashboard/manage",
+                  "application/dashboard/start-migration"
+                ]
+              }
             ]
           }
         ]

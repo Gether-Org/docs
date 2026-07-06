@@ -1,0 +1,26 @@
+---
+title: "Page d'Inscription"
+description: "Création d'un nouveau compte utilisateur Sledge"
+icon: "user-plus"
+---
+
+La page d'inscription (Register) permet aux nouveaux utilisateurs de rejoindre la plateforme Sledge. Elle conserve la même charte graphique et la même structure "Split Screen" que la page de connexion pour garantir une expérience utilisateur cohérente.
+
+<Frame>
+  <img src="/images/register.png" alt="Interface d'inscription Sledge" />
+</Frame>
+
+## Interface et Fonctionnalités
+
+L'interface propose un formulaire clair intitulé "Create an account" pour commencer à utiliser Sledge :
+
+* **Création classique :** Saisie de l'email et du mot de passe, validée par le bouton bleu "Sign Up".
+* **Création rapide (OAuth) :** L'option "Or continue with" permet de s'inscrire en un clic via un compte tiers sécurisé (**Google** ou **GitHub**).
+* **Navigation :** Un lien "Already have an account? Login" en bas du formulaire permet de basculer instantanément vers la page de connexion si l'utilisateur possède déjà un compte.
+
+## Logique Backend & Sécurité
+
+Lors de la soumission du formulaire d'inscription :
+1. Notre backend en **Go** interroge la base de données **PostgreSQL** pour vérifier que l'adresse email n'est pas déjà utilisée.
+2. Le mot de passe saisi est haché de manière sécurisée (via `golang.org/x/crypto`) avant d'être persisté en base. Sledge ne stocke jamais les mots de passe en clair.
+3. Une fois le compte créé, un premier token JWT est généré et le nouvel utilisateur est redirigé vers son Dashboard.
