@@ -1,46 +1,46 @@
 ---
-title: 'Gérer les Providers (Manage)'
-description: 'Ajouter, connecter et interagir avec vos fournisseurs cloud'
+title: 'Manage Providers (Manage)'
+description: 'Add, connect, and interact with your cloud providers'
 icon: 'network-wired'
 ---
 
-L'interface de gestion (Manage) est le cœur interactif de Sledge. C'est ici que vous définissez visuellement l'architecture de vos migrations.
+The management interface (Manage) is the interactive heart of Sledge. This is where you visually design the architecture of your migrations.
 
 <Frame>
-  <img src="/images/manage-nodes.png" alt="Interface de nœuds Sledge" />
+  <img src="/images/manage-nodes.png" alt="Sledge Node Interface" />
 </Frame>
 
-## Interface Nodale (Drag & Drop)
+## Node-Based Interface (Drag & Drop)
 
-L'espace de travail utilise un système de graphe interactif :
-* **Nœud Sledge :** Le point central de votre infrastructure.
-* **Nœuds Providers :** Glissez, déposez et reliez vos fournisseurs (ex: AWS, Azure, Scaleway) directement au nœud Sledge pour établir une connexion.
-* **Contrôles :** En bas à gauche, des outils permettent de zoomer, dézoomer ou centrer la vue sur vos ressources.
+The workspace uses an interactive graph system:
+* **Sledge Node:** The central hub of your infrastructure.
+* **Provider Nodes:** Drag, drop, and connect your providers (e.g., AWS, Azure, Scaleway) directly to the Sledge node to establish a connection.
+* **Controls:** Located at the bottom left, these tools allow you to zoom in, zoom out, or center the view on your resources.
 
-## Interactions avec les Nœuds
+## Interacting with Nodes
 
-Une fois vos providers ajoutés à l'espace de travail, plusieurs interactions sont possibles directement depuis les nœuds :
+Once your providers are added to the workspace, several interactions are available directly from the nodes:
 
-### Explorer les données (Double-clic)
-En double-cliquant sur un nœud provider, un panneau latéral s'ouvre sur la droite de l'écran. Il vous permet de lister l'ensemble des "Buckets" (espaces de stockage) disponibles et de prévisualiser directement les fichiers qui s'y trouvent.
+### Explore Data (Double-click)
+Double-clicking a provider node opens a sidebar on the right side of the screen. It allows you to list all available "Buckets" (storage spaces) and directly preview the files inside them.
 
 <Frame>
-  <img src="/images/manage-bucket.png" alt="Contenu d'un Bucket" />
+  <img src="/images/manage-bucket.png" alt="Bucket Content" />
 </Frame>
 
-### Paramètres du Provider (Clic droit)
-Un clic droit sur un nœud ouvre un menu contextuel rapide. Depuis ce menu, vous pouvez accéder aux paramètres spécifiques du provider pour le **renommer**, modifier ses accès ou le **supprimer** de votre espace de travail.
+### Provider Settings (Right-click)
+Right-clicking a node opens a quick context menu. From this menu, you can access specific provider settings to **rename** it, modify its access credentials, or **delete** it from your workspace.
 
-## Ajouter un Provider
+## Add a Provider
 
-Pour ajouter un nouveau fournisseur cloud, cliquez sur le bouton d'action principal (le bouton bleu **"+"** en bas à droite).
+To add a new cloud provider, click the main action button (the blue **"+"** button at the bottom right).
 
 <Frame>
-  <img src="/images/manage-import.png" alt="Importation d'un provider" />
+  <img src="/images/manage-import.png" alt="Importing a provider" />
 </Frame>
 
-### Importation depuis un fichier
-La méthode la plus rapide et sécurisée pour ajouter un provider (ex: Amazon AWS) est d'utiliser la modale **"Import From File"** :
-1. Sélectionnez le fournisseur cible dans le menu déroulant.
-2. Glissez-déposez votre fichier de configuration (formats supportés : **JSON, YAML, CSV**, etc.).
-3. Sledge analyse automatiquement le fichier, stocke les identifiants de manière sécurisée en base de données, et instancie le nouveau nœud sur votre espace de travail.
+### Import from File
+The fastest and most secure method to add a provider (e.g., Amazon AWS) is to use the **"Import From File"** modal:
+1. Select the target provider from the dropdown menu.
+2. Drag and drop your configuration file (supported formats: **JSON, YAML, CSV**, etc.).
+3. Sledge automatically parses the file, securely stores the credentials in the database, and instantiates the new node in your workspace.

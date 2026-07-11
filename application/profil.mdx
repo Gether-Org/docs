@@ -1,30 +1,30 @@
 ---
-title: "Paramètres du Profil"
-description: "Gestion des informations personnelles, des organisations et de la facturation"
-icon: "address-card"
+title: 'Profile Settings'
+description: 'Manage personal information, organizations, and billing'
+icon: 'address-card'
 ---
 
-La vue "Profile Settings" est l'espace centralisé où l'utilisateur a le contrôle total sur les informations de son compte et ses préférences.
+The "Profile Settings" view is the centralized space where users have full control over their account information and preferences.
 
 <Frame>
-  <img src="/images/profile.png" alt="Interface du profil Sledge" />
+  <img src="/images/profile.png" alt="Sledge profile interface" />
 </Frame>
 
-## Structure de la page
+## Page Structure
 
-La navigation interne des paramètres se fait de manière fluide via un système d'onglets (Tabs) situé en haut de la page :
-* **General :** L'onglet par défaut, dédié aux informations personnelles.
-* **Organizations :** Pour la gestion des espaces de travail collaboratifs et des équipes.
-* **Billing :** Pour gérer les informations de paiement, les abonnements et la facturation.
+Internal navigation through settings is seamless via a tab system (Tabs) located at the top of the page:
+* **General:** The default tab, dedicated to personal information.
+* **Organizations:** For managing collaborative workspaces and teams.
+* **Billing:** For managing payment details, subscriptions, and billing.
 
-### Informations Personnelles (General)
+### Personal Information (General)
 
-L'interface "Personal Information" permet à l'utilisateur (par exemple *Esteban Marques* sur la capture d'écran) de visualiser et de mettre à jour :
-* Une **photo de profil** (Avatar).
-* Le **First Name** (Prénom) et le **Last Name** (Nom de famille).
-* Une **Description** personnalisable pour identifier le rôle de l'utilisateur.
-* L'**Email** rattaché au compte.
+The "Personal Information" interface allows the user (for example, *Esteban Marques* in the screenshot) to view and update:
+* A **profile picture** (Avatar).
+* The **First Name** and **Last Name**.
+* A customizable **Description** to identify the user's role.
+* The **Email** linked to the account.
 
-### Mise à jour des données
+### Data Updates
 
-Lorsque l'utilisateur clique sur le bouton **Modifier**, le frontend (Next.js) envoie une requête API authentifiée avec le token JWT actif. Le backend **Go** intercepte cette requête, valide les nouvelles données et met à jour l'enregistrement correspondant dans la base **PostgreSQL** avant de renvoyer un statut de succès à l'interface.
+When the user clicks the **Edit** button, the frontend (Next.js) sends an authenticated API request with the active JWT token. The **Go** backend intercepts this request, validates the new data, and updates the corresponding record in the **PostgreSQL** database before returning a success status to the interface.

@@ -1,26 +1,26 @@
 ---
-title: "Page d'Inscription"
-description: "Création d'un nouveau compte utilisateur Sledge"
-icon: "user-plus"
+title: 'Registration Page'
+description: 'Create a new Sledge user account'
+icon: 'user-plus'
 ---
 
-La page d'inscription (Register) permet aux nouveaux utilisateurs de rejoindre la plateforme Sledge. Elle conserve la même charte graphique et la même structure "Split Screen" que la page de connexion pour garantir une expérience utilisateur cohérente.
+The registration page (Register) allows new users to join the Sledge platform. It retains the same graphic identity and "Split Screen" structure as the login page to ensure a consistent user experience.
 
 <Frame>
-  <img src="/images/register.png" alt="Interface d'inscription Sledge" />
+  <img src="/images/register.png" alt="Sledge registration interface" />
 </Frame>
 
-## Interface et Fonctionnalités
+## Interface and Features
 
-L'interface propose un formulaire clair intitulé "Create an account" pour commencer à utiliser Sledge :
+The interface features a clear form titled "Create an account" to get started with Sledge:
 
-* **Création classique :** Saisie de l'email et du mot de passe, validée par le bouton bleu "Sign Up".
-* **Création rapide (OAuth) :** L'option "Or continue with" permet de s'inscrire en un clic via un compte tiers sécurisé (**Google** ou **GitHub**).
-* **Navigation :** Un lien "Already have an account? Login" en bas du formulaire permet de basculer instantanément vers la page de connexion si l'utilisateur possède déjà un compte.
+* **Classic creation:** Input of email and password, validated by the blue "Sign Up" button.
+* **Quick creation (OAuth):** The "Or continue with" option allows for one-click sign-up via a secure third-party account (**Google** or **GitHub**).
+* **Navigation:** An "Already have an account? Login" link at the bottom of the form allows users to instantly switch to the login page if they already have an account.
 
-## Logique Backend & Sécurité
+## Backend Logic & Security
 
-Lors de la soumission du formulaire d'inscription :
-1. Notre backend en **Go** interroge la base de données **PostgreSQL** pour vérifier que l'adresse email n'est pas déjà utilisée.
-2. Le mot de passe saisi est haché de manière sécurisée (via `golang.org/x/crypto`) avant d'être persisté en base. Sledge ne stocke jamais les mots de passe en clair.
-3. Une fois le compte créé, un premier token JWT est généré et le nouvel utilisateur est redirigé vers son Dashboard.
+Upon submitting the registration form:
+1. Our **Go** backend queries the **PostgreSQL** database to verify that the email address is not already in use.
+2. The entered password is securely hashed (via `golang.org/x/crypto`) before being persisted in the database. Sledge never stores plain-text passwords.
+3. Once the account is created, an initial JWT token is generated, and the new user is redirected to their Dashboard.

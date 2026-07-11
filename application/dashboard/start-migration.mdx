@@ -1,33 +1,33 @@
 ---
-title: 'Lancer une Migration (Start)'
-description: 'Configurer la source et la destination pour votre transfert de données'
+title: 'Start a Migration (Start)'
+description: 'Configure the source and destination for your data transfer'
 icon: 'paper-plane'
 ---
 
-L'interface "Start Migration" vous permet de configurer étape par étape le transfert de vos données d'un fournisseur cloud à un autre. La vue est divisée en deux parties : la configuration du flux à gauche, et la prévisualisation des données à droite.
+The "Start Migration" interface allows you to configure your data transfer step-by-step from one cloud provider to another. The view is split into two parts: workflow configuration on the left, and data preview on the right.
 
 <Frame>
-  <img src="/images/start-migration.png" alt="Interface de démarrage de migration Sledge" />
+  <img src="/images/start-migration.png" alt="Sledge Start Migration Interface" />
 </Frame>
 
-## Configuration du Flux
+## Workflow Configuration
 
-Le processus de configuration est guidé et se déroule en deux étapes simples dans le panneau latéral gauche :
+The configuration process is guided and takes place in two simple steps within the left sidebar:
 
 ### 1. Source Connection
-Définissez l'origine de vos données.
-* **Select Connection :** Choisissez le fournisseur cloud source parmi vos connexions pré-établies (par exemple, votre compte AWS).
-* **Bucket :** Sélectionnez dans le menu déroulant le bucket spécifique contenant les fichiers à migrer (ex: `my-first-sledge-bucket`).
+Define where your data is coming from.
+* **Select Connection:** Choose the source cloud provider from your pre-established connections (for example, your AWS account).
+* **Bucket:** Select the specific bucket containing the files to migrate from the dropdown menu (e.g., `my-first-sledge-bucket`).
 
 ### 2. Destination Connection
-Définissez où vos données doivent atterrir.
-* **Select Connection :** Sélectionnez le fournisseur cloud de destination (par exemple, votre compte GCP).
-* **Destination Bucket Name :** Saisissez le nom du bucket cible. Pratique : si le bucket indiqué n'existe pas encore sur votre compte de destination, **Sledge le créera automatiquement** lors du lancement de la migration.
+Define where your data should go.
+* **Select Connection:** Select the destination cloud provider (for example, your GCP account).
+* **Destination Bucket Name:** Enter the name of the target bucket. Handy feature: if the specified bucket does not exist yet on your destination account, **Sledge will automatically create it** when launching the migration.
 
-## Prévisualisation (Source Contents)
+## Preview (Source Contents)
 
-Le panneau de droite est dédié à la vérification des données avant l'envoi.
+The right panel is dedicated to verifying data before sending it.
 
-* **Explorateur de fichiers :** Affiche instantanément le contenu du bucket source sélectionné. Vous pouvez y voir la liste exacte des éléments qui seront migrés (par exemple, vos images `.jpg`).
-* **Actualisation :** Une icône de rafraîchissement en haut à droite permet de mettre à jour la liste si des modifications récentes ont été faites sur le cloud source.
-* **Statistiques :** En bas à droite, un compteur résume le volume total d'éléments prêts à être transférés (nombre de fichiers et de dossiers).
+* **File Explorer:** Instantly displays the content of the selected source bucket. You can see the exact list of items that will be migrated (for example, your `.jpg` images).
+* **Refresh:** A refresh icon at the top right allows you to update the list if recent changes have been made to the source cloud.
+* **Statistics:** At the bottom right, a counter summarizes the total volume of items ready to be transferred (number of files and folders).

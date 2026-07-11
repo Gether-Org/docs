@@ -1,36 +1,36 @@
 ---
-title: 'Page de Connexion'
-description: 'Authentification sécurisée pour accéder à votre interface Sledge'
+title: 'Login Page'
+description: 'Secure authentication to access your Sledge interface'
 icon: 'right-to-bracket'
 ---
 
-La page de connexion (Login) est le point d'entrée sécurisé pour tous les utilisateurs de Sledge. Elle a été conçue pour être rapide, intuitive et offrir plusieurs méthodes d'authentification.
+The login page (Login) is the secure entry point for all Sledge users. It has been designed to be fast, intuitive, and offer multiple authentication methods.
 
 <Frame>
-  <img src="/images/login.png" alt="Interface de connexion Sledge" />
+  <img src="/images/login.png" alt="Sledge login interface" />
 </Frame>
 
-## Fonctionnalités de l'interface
+## Interface Features
 
-Le design adopte une structure en deux colonnes (Split Screen) avec un thème sombre élégant et notre bleu identitaire. La partie gauche est dédiée à l'interaction :
+The design adopts a two-column layout (Split Screen) with an elegant dark theme and our signature blue color. The left side is dedicated to interaction:
 
 <CardGroup cols={2}>
-  <Card title="Authentification Classique" icon="envelope">
-    Connexion standard via **Email et Mot de passe**. Un lien "Forgot your password?" permet une récupération rapide du compte.
+  <Card title="Classic Authentication" icon="envelope">
+    Standard login via **Email and Password**. A "Forgot your password?" link allows for quick account recovery.
   </Card>
   <Card title="Social Login (OAuth)" icon="github">
-    Connexion en un clic (Single Sign-On) via des fournisseurs tiers sécurisés : **Google** et **GitHub**.
+    One-click login (Single Sign-On) via secure third-party providers: **Google** and **GitHub**.
   </Card>
 </CardGroup>
 
-## Fonctionnement Technique
+## Technical Operation
 
-Cette page fait le pont entre notre interface utilisateur et notre architecture de sécurité backend :
+This page bridges our user interface and our backend security architecture:
 
-1. **Frontend (Next.js) :** La gestion des sessions, de la redirection et des fournisseurs OAuth (Google/GitHub) est gérée par **NextAuth.js (v5)**.
-2. **Backend (Go) :** Pour l'authentification classique, les identifiants sont envoyés à notre API Go, qui les compare avec notre base de données **PostgreSQL**.
-3. **Sécurité :** Une fois l'utilisateur vérifié, un token sécurisé **JWT** (`golang-jwt/jwt/v5`) est généré et renvoyé au client pour authentifier ses actions futures (comme lancer une migration).
+1. **Frontend (Next.js):** Session management, redirection, and OAuth providers (Google/GitHub) are handled by **NextAuth.js (v5)**.
+2. **Backend (Go):** For classic authentication, credentials are sent to our Go API, which compares them against our **PostgreSQL** database.
+3. **Security:** Once the user is verified, a secure **JWT** token (`golang-jwt/jwt/v5`) is generated and sent back to the client to authenticate future actions (such as starting a migration).
 
 <Note>
-  **Accès aux nouveaux utilisateurs :** Un lien *Sign up* est disponible en bas de l'interface pour rediriger vers la page d'inscription (voir la section `Register`).
+  **New User Access:** A *Sign up* link is available at the bottom of the interface to redirect to the registration page (see the `Register` section).
 </Note>
