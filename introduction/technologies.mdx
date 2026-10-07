@@ -1,6 +1,6 @@
 ---
 title: 'Technical Stack'
-description: 'The modern and robust technologies powering Sledge'
+description: 'The modern and robust technologies powering Merops'
 icon: 'layer-group'
 ---
 
@@ -10,14 +10,14 @@ To guarantee optimal performance, flawless security, and a seamless user experie
 
 ### Frontend: Next.js & Tailwind CSS
 
-The user interface is Sledge's entry point. It needs to be highly responsive, especially for our *Drag & Drop* system that allows users to visually connect cloud providers.
+The user interface is Merops's entry point. It needs to be highly responsive, especially for our *Drag & Drop* system that allows users to visually connect cloud providers.
 
 * **Next.js (v16.0.10)**: Provides a robust React framework, enabling fast rendering (SSR/SSG) and a clear project structure.
 * **Tailwind CSS (v4)**: Allows us to quickly design a custom interface consistent with our visual identity (native dark mode, clean components), while keeping the code maintainable.
 
 ### Backend: Go (Golang)
 
-The core of Sledge (API Gateways, migration and synchronization logic) is developed in **Go (v1.25.0)**.
+The core of Merops (API Gateways, migration and synchronization logic) is developed in **Go (v1.25.0)**.
 Moving gigabytes of data between an AWS S3 bucket and Azure Blob Storage requires a fast and lightweight compiled language. Thanks to *Goroutines*, Go perfectly handles the parallel execution of heavy tasks (concurrency) without overloading the servers. 
 
 ### Database & Cache: PostgreSQL & Redis
@@ -28,7 +28,7 @@ To optimize our API's performance and manage caching, the stack also integrates 
 
 ### Deployment: Docker & Docker Compose
 
-The entire Sledge infrastructure is containerized. The backend runs on a minimalist and secure environment based on **Alpine Linux 3.19**.
+The entire Merops infrastructure is containerized. The backend runs on a minimalist and secure environment based on **Alpine Linux 3.19**.
 Using **Docker** and **Docker Compose** ensures that the application runs exactly the same way in a local development environment as it does on our production servers. This makes it possible to:
 
 1. Easily onboard new developers to the project (the backend, PostgreSQL database, and Redis all launch together via a dedicated network).

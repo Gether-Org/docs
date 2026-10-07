@@ -1,18 +1,18 @@
 ---
 title: 'Registration Page'
-description: 'Create a new Sledge user account'
+description: 'Create a new Merops user account'
 icon: 'user-plus'
 ---
 
-The registration page (Register) allows new users to join the Sledge platform. It retains the same graphic identity and "Split Screen" structure as the login page to ensure a consistent user experience.
+The registration page (Register) allows new users to join the Merops platform. It retains the same graphic identity and "Split Screen" structure as the login page to ensure a consistent user experience.
 
 <Frame>
-  <img src="/images/register.png" alt="Sledge registration interface" />
+  <img src="/images/register.png" alt="Merops registration interface" />
 </Frame>
 
 ## Interface and Features
 
-The interface features a clear form titled "Create an account" to get started with Sledge:
+The interface features a clear form titled "Create an account" to get started with Merops:
 
 * **Classic creation:** Input of email and password, validated by the blue "Sign Up" button.
 * **Quick creation (OAuth):** The "Or continue with" option allows for one-click sign-up via a secure third-party account (**Google** or **GitHub**).
@@ -22,5 +22,5 @@ The interface features a clear form titled "Create an account" to get started wi
 
 Upon submitting the registration form:
 1. Our **Go** backend queries the **PostgreSQL** database to verify that the email address is not already in use.
-2. The entered password is securely hashed (via `golang.org/x/crypto`) before being persisted in the database. Sledge never stores plain-text passwords.
+2. The entered password is securely hashed (via `golang.org/x/crypto`) before being persisted in the database. Merops never stores plain-text passwords.
 3. Once the account is created, an initial JWT token is generated, and the new user is redirected to their Dashboard.
