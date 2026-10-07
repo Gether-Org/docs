@@ -74,6 +74,17 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Legal",
+        "groups": [
+          {
+            "group": "Legal Documents",
+            "pages": [
+              "legal/privacy_policy.md"
+            ]
+          }
+        ]
       }
     ]
   },
@@ -81,13 +92,13 @@
     "links": [
       {
         "label": "Dépôt GitHub",
-        "href": "https://github.com/Gether-Org/sledge.git"
+        "href": "https://github.com/Gether-Org/merops.git"
       }
     ]
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/Gether-Org/sledge.git"
+      "github": "https://github.com/Gether-Org/merops.git"
     }
   }
 }
