@@ -1,0 +1,110 @@
+---
+title: 'Privacy Policy'
+description: 'Secure authentication to access your Sledge interface'
+icon: 'right-to-bracket'
+last-updated: 7 October 2026
+version: v0.1
+---
+
+Items in [BRACKETS] must be completed or confirmed before launch.
+
+## 1. Who we are
+
+Merops ("we", "us") is a multi-cloud storage management and synchronisation service.
+
+<!-- The data controller is:
+
+**\[Legal entity name / sole trader name\]**, \[legal form\], SIRET \[number\], registered at \[address\], France. Contact for privacy matters: \[privacy@your-domain\]. -->
+
+## 2. Scope and our two roles
+
+This policy explains what personal data Merops processes and why. We act in two capacities:
+
+- **As a controller** for your account data (login, profile, preferences, logs, reports).
+- **As a processor** (on your behalf) for the content and metadata of the cloud storage accounts you connect to Merops (bucket and object names, sizes, modification dates, and objects transferred during a migration or synchronisation). Business customers who need a Data Processing Agreement (DPA) can contact us.
+
+## 3. Data we process
+
+| Category | What it includes | Why |
+| --- | --- | --- |
+| Account data | Email address, password (stored only as a salted Argon2 hash), account creation date | Create and secure your account |
+| Profile data | Profile picture (optional), position of providers on your dashboard | Personalise your dashboard |
+| Provider credentials | The credential files you upload (JSON, CSV, etc.) for a cloud provider. They are parsed, then stored only in encrypted form (see section 5) | Connect to your cloud accounts on your behalf |
+| Cloud metadata | Names of your buckets and objects, last-modified date, size | Display, search and synchronise your storage |
+| Synchronisation settings | Which buckets are synchronised and how often | Run the synchronisations you configure |
+| Action logs | Type of action (registration, login, migration, synchronisation) and timestamp, linked to your account | Security, audit, troubleshooting |
+| User reports | Reports you submit (account identifier, environment, description, date) | Handle your support or bug reports |
+| Session data | Session identifier, authentication token (JWT), refresh token | Keep you logged in |
+| Transferred content | Objects copied between providers during a migration or sync, which pass through our servers in memory while being transferred | Perform the transfer you requested |
+| Billing data | \[Reserved: to be completed when paid plans are introduced\] |  |
+| Email communications | \[Reserved: to be completed if and when we send emails\] |  |
+
+We do not collect analytics, advertising identifiers or behavioural tracking data.
+
+## 4. Why we process your data and on what legal basis
+
+- **Providing the service** (account, credentials, metadata, synchronisation, sessions): performance of a contract (Art. 6(1)(b) GDPR).
+- **Security, fraud prevention and logging**: our legitimate interest in securing the service (Art. 6(1)(f)).
+- **Support and bug reports**: performance of a contract and legitimate interest.
+- **Legal obligations** (accounting, responding to authorities): Art. 6(1)(c).
+
+We do not sell your data, and we do not use it for advertising or profiling.
+
+## 5. How your cloud credentials are protected
+
+We want to describe this precisely rather than with marketing slogans.
+
+- Each user has a random encryption key (the *user master key*, UMK). It is stored only in wrapped (encrypted) form, using a key derived from your password with Argon2. We do not store your password in clear text.
+- Your uploaded credential files are encrypted with your UMK before being stored in our cloud storage.
+- When you log in, your UMK is unwrapped using your password and kept in a volatile in-memory store for the duration of your session. While your session is active, Merops can use it to operate your connected providers on your behalf. In application memory, key material is overwritten once no longer needed.
+- Provider connections are held in memory only, identified by an internal key that is never disclosed to users.
+- **Consequence:** because your key is derived from your password, we cannot recover your credentials if you lose your password.
+
+This is encryption at rest with per-user keys. It is not a "zero-knowledge" or end-to-end model: while you are logged in, our systems can access your decrypted credentials in memory.
+
+Provider integrations are software components run by Merops on the same infrastructure as our back-end and are reviewed before deployment.
+
+## 6. Where data is hosted and who we share it with
+
+| Recipient | Purpose | Location |
+| --- | --- | --- |
+| \[Hosting provider of the VM\] | Hosts the back-end, database, Redis and integration components | \[country/region\] |
+| Google Cloud Platform | Stores encrypted credential files and profile pictures | \[region\] |
+| Cloudflare | Hosts the marketing website \[and DNS/CDN\] | Global, with possible transfers to the US |
+| Cloud providers you connect (e.g. AWS, GCP) | Receive the requests we make on your behalf | Per provider |
+
+Cloud providers you connect are independent third parties governed by their own terms and privacy policies. Where data is transferred outside the European Economic Area, we rely on an adequacy decision (such as the EU-US Data Privacy Framework) or Standard Contractual Clauses.
+
+## 7. Retention
+
+- **Account, profile, settings, credentials, metadata**: kept while your account is active, and deleted when you delete your account \[define delay, e.g. 30 days for backups\].
+- **Action logs**: \[X months\].
+- **User reports**: \[X months after closure\].
+- **Sessions and tokens**: until they expire \[durations\].
+- **Billing records** (when introduced): \[10 years, legal accounting obligation\].
+
+If a migration is running when you delete your account, we may complete the current migration cycle before deleting your data.
+
+## 8. Cookies and local storage
+
+We use cookies and browser storage only for strictly necessary purposes: keeping you authenticated (session/JWT and refresh token) and caching your own interface data. We do not use analytics, advertising or third-party tracking cookies, so no consent banner is required. \[List cookie names, purpose and duration.\]
+
+## 9. Security
+
+Beyond the credential protection described in section 5, we use Argon2 password hashing, authentication tokens with limited lifetimes, and ownership checks on every request to a connected provider. Traffic between you and Merops is encrypted with HTTPS \[confirm TLS on all endpoints\]. Internal communication between Merops components happens locally on the same host \[add any internal encryption once implemented\]. No system is perfectly secure. In case of a personal data breach likely to put you at risk, we will notify the CNIL within 72 hours and inform you where required.
+
+## 10. Your rights
+
+Under the GDPR you have the right to access, rectify, erase, restrict and object to the processing of your data, and to receive it in a portable format. To exercise these rights, contact [contact@merops.cloud](mailto:contact@merops.cloud) or use the account deletion option in your settings. You can also lodge a complaint with the CNIL ([www.cnil.fr](www.cnil.fr)).
+
+## 11. Children
+
+Merops is not intended for people under 16. We do not knowingly collect data from them.
+
+## 12. Changes
+
+We may update this policy. We will post the new version with its date and, for material changes, notify you by email, or by in-app notice.
+
+## 13. Contact
+
+\[Entity name\] – \[address\] – [contact@merops.cloud](contact@merops.cloud)
