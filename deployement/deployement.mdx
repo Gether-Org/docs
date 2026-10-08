@@ -1,0 +1,89 @@
+---
+title: 'Deployment'
+description: 'Deploy Merops and keep it healthy in production'
+icon: 'cloud-arrow-up'
+---
+
+Merops is deployed with **Docker Compose** on a single host. The same stack runs locally and in production, which keeps both environments consistent.
+
+## Deployment targets
+
+| Part | Where it runs |
+| --- | --- |
+| Backend, PostgreSQL, Redis, Grafana, provider microservices | Docker Compose on a virtual machine |
+| Encrypted credentials and profile pictures | Google Cloud Storage |
+| Merops application (Next.js) | Docker container built from `frontend/application/Dockerfile` |
+| Marketing website and waitlist | Cloudflare |
+
+## Deploy the backend
+
+<Steps>
+  <Step title="Prepare the host">
+    Install Docker and Docker Compose on the server, then clone the repository:
+
+    ```bash
+    git clone https://github.com/Gether-Org/merops.git
+    cd merops/backend
+    ```
+  </Step>
+  <Step title="Configure secrets">
+    Create `.env` from `.env.example` and replace every default value with a strong, unique secret. Add the GCP service account key as `account_google.json`.
+
+    See [Environment variables](/deployement/environement-variables) for the full reference.
+  </Step>
+  <Step title="Start the stack">
+    ```bash
+    docker compose up -d --build
+    ```
+
+    Do not enable the `dev` profile in production: it exposes the Swagger UI.
+  </Step>
+  <Step title="Check the services">
+    ```bash
+    docker compose ps
+    docker compose logs -f backend
+    ```
+  </Step>
+</Steps>
+
+## Deploy the frontend
+
+Build the application image with the public API URL. `NEXT_PUBLIC_*` variables are inlined at build time, so you must rebuild the image when the URL changes.
+
+```bash
+cd frontend/application
+docker build --build-arg NEXT_PUBLIC_API_URL=https://api.example.com -t merops-app .
+docker run -d -p 3000:3000 --env-file .env merops-app
+```
+
+## Production checklist
+
+<Check>
+Serve the backend and the frontend over **HTTPS** behind a reverse proxy.
+</Check>
+<Check>
+Replace all example passwords, including `POSTGRES_PASSWORD`, `GRAFANA_ADMIN_PASSWORD`, and `AUTH_SECRET`.
+</Check>
+<Check>
+Leave dummy user variables empty, or remove them.
+</Check>
+<Check>
+Do not publish the PostgreSQL, Redis, and Grafana ports to the internet.
+</Check>
+<Check>
+Add a named volume or a backup strategy for PostgreSQL. The default Compose file does not persist database data.
+</Check>
+
+## Continuous integration
+
+Every push and pull request runs GitHub Actions workflows:
+
+| Workflow | Checks |
+| --- | --- |
+| `backend.yaml` | Go formatting, linting, compilation, and tests |
+| `frontend.yaml` | Type checks, linting, and builds for `application` and `marketing` |
+| `ci-failure.yml` | Sends a Discord notification to the author when a workflow fails |
+
+## Monitoring
+
+Grafana is provisioned automatically from `backend/grafana/provisioning/`. It uses PostgreSQL as its data source and ships with dashboards for user logs and feedback reports. Access it on the port defined by `GRAFANA_PORT`.

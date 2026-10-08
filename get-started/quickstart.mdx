@@ -1,0 +1,66 @@
+---
+title: 'Quickstart'
+description: 'Run your first cloud-to-cloud migration in a few minutes'
+icon: 'bolt'
+---
+
+This guide walks you through your first migration with Merops: from account creation to a completed data transfer between two cloud providers.
+
+## Prerequisites
+
+Before you start, make sure you have:
+
+- Credentials for at least **two cloud accounts** (for example, an AWS account and a Google Cloud account), or two buckets on the same provider.
+- A credentials file for each account, in **JSON**, **YAML**, or **CSV** format.
+
+<Warning>
+Use credentials with the minimum permissions required: read access on the source bucket, and write access on the destination. Never share credentials with full administrator rights.
+</Warning>
+
+## Run your first migration
+
+<Steps>
+  <Step title="Create your account">
+    Open the Merops application and click **Sign up**. Register with your email and password, or continue with **Google** or **GitHub**.
+
+    Once your account is created, Merops redirects you to your [Dashboard](/application/dashboard/accueil).
+
+    See [Registration page](/application/register) for details.
+  </Step>
+  <Step title="Add your source provider">
+    In the sidebar, open **Providers** > **Manage**. Click the blue **+** button at the bottom right, then select **Import From File**.
+
+    Choose the provider in the dropdown menu (for example, **Amazon AWS**) and drop your credentials file. Merops encrypts the file and adds a new node to your workspace.
+  </Step>
+  <Step title="Add your destination provider">
+    Repeat the previous step with your destination account (for example, **Google Cloud**).
+
+    Double-click a provider node to check that Merops can list its buckets and objects.
+  </Step>
+  <Step title="Configure the migration">
+    In the sidebar, open **Bucket Migration** > **Start Migration**:
+
+    1. Under **Source connection**, select your source provider and the bucket to migrate.
+    2. Under **Destination connection**, select your destination provider and enter a bucket name.
+
+    <Tip>
+    If the destination bucket does not exist yet, Merops creates it automatically when the migration starts.
+    </Tip>
+  </Step>
+  <Step title="Review and launch">
+    Check the file list in the right panel. It shows exactly which objects will be transferred.
+
+    Click **Start Migration** to launch the transfer. Follow its progress from the **Recent Activity** section of your Dashboard.
+  </Step>
+</Steps>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Manage providers" icon="network-wired" href="/application/dashboard/manage">
+    Rename, update, or delete your connected providers.
+  </Card>
+  <Card title="Get help" icon="discord" href="https://discord.gg/kRPEZxR3V">
+    Ask the team and other users on our Discord server.
+  </Card>
+</CardGroup>

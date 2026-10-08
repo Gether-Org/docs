@@ -1,0 +1,82 @@
+---
+title: 'Next.js setup'
+description: 'Structure and configuration of the Merops frontend'
+icon: 'react'
+---
+
+The Merops frontend lives in the `frontend/` folder of the repository. It contains two independent Next.js applications managed with **pnpm**.
+
+| Application | Path | Purpose |
+| --- | --- | --- |
+| **Application** | `frontend/application` | The Merops web app: authentication, dashboard, providers, migrations, and synchronizations |
+| **Marketing** | `frontend/marketing` | The public landing website |
+| **Waitlist worker** | `frontend/marketing/waitlist-worker` | Cloudflare Worker that handles waitlist registrations |
+
+## Tech stack
+
+- **Next.js 16** with the App Router
+- **React 19** and **TypeScript**
+- **Tailwind CSS 4** and **shadcn/ui** (Radix UI primitives)
+- **TanStack React Query** for data fetching and caching
+- **React Flow** (`@xyflow/react`) for the node-based provider canvas
+- **Framer Motion** for animations
+- **Vitest** and Testing Library for tests
+
+## Project structure
+
+```text
+frontend/application/src/
+├── app/
+│   ├── (registration)/     # Login and registration pages
+│   ├── (dashboard)/        # Authenticated pages: dashboard, providers, migration, sync, profile
+│   └── api/auth/           # Route handlers: login, logout, refresh
+├── components/
+│   ├── dashboard-ui/       # Sidebar, top bar, breadcrumbs
+│   └── ui/                 # shadcn/ui components
+├── hooks/                  # React Query hooks (useLogin, useProvider, useMigrate, ...)
+├── lib/
+│   ├── api/                # Typed API client, one file per backend domain
+│   └── auth/               # Session helpers
+└── middleware.ts           # Route protection and token refresh
+```
+
+Route groups in parentheses, such as `(dashboard)`, organize pages without affecting the URL.
+
+## Authentication flow
+
+The `middleware.ts` file protects every page except `/login`, `/register`, and `/api/auth/*`:
+
+1. If no refresh token cookie is present, the user is redirected to `/login`.
+2. If the short-lived session token has expired, the middleware calls the backend `/auth/refresh` endpoint before the page loads.
+3. If the refresh fails, the cookies are cleared and the user is redirected to `/login`.
+
+Tokens are stored in `httpOnly` cookies, so client-side JavaScript cannot read them.
+
+## Data fetching
+
+All calls to the backend go through the typed client in `src/lib/api/`. Each domain (`auth`, `providers`, `buckets`, `migrate`, `sync`, `user`) has its own module, wrapped by a React Query hook in `src/hooks/`.
+
+```tsx
+const { data: buckets, isLoading } = useBuckets(providerId);
+```
+
+## Configuration
+
+Create a `.env` file in `frontend/application`:
+
+```bash .env
+NEXT_PUBLIC_API_URL=http://localhost:8080
+AUTH_SECRET=your-generated-secret
+```
+
+See [Environment variables](/deployement/environement-variables#frontend) for the full list.
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Start the development server on `http://localhost:3000` |
+| `pnpm build` | Build the application for production |
+| `pnpm start` | Serve the production build |
+| `pnpm lint` | Run ESLint |
+| `pnpm test` | Run the Vitest test suite |

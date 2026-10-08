@@ -1,0 +1,120 @@
+---
+title: 'Environment variables'
+description: 'Reference of all variables used to configure Merops'
+icon: 'sliders'
+---
+
+Merops is configured through `.env` files. Templates are available in the repository as `backend/.env.example` and `frontend/application/.env.example`.
+
+<Warning>
+Never commit a `.env` file or real credentials to the repository. Replace every example value before deploying to production.
+</Warning>
+
+## Backend
+
+Set these variables in `backend/.env`.
+
+### Application
+
+<ParamField path="BACKEND_PORT" type="number" default="8080">
+  Port the Go API listens on.
+</ParamField>
+<ParamField path="SOCKET_DIR" type="string" default="/tmp/sledge-sockets">
+  Directory where Provicol Unix sockets are created for provider microservices.
+</ParamField>
+
+### PostgreSQL
+
+<ParamField path="POSTGRES_HOST" type="string" default="database">
+  Database host. Must match the PostgreSQL service name in `docker-compose.yml`.
+</ParamField>
+<ParamField path="POSTGRES_PORT" type="number" default="8081">
+  Database port.
+</ParamField>
+<ParamField path="POSTGRES_DB" type="string" required>
+  Database name.
+</ParamField>
+<ParamField path="POSTGRES_USER" type="string" required>
+  Database user.
+</ParamField>
+<ParamField path="POSTGRES_PASSWORD" type="string" required>
+  Database password.
+</ParamField>
+
+### Redis
+
+<ParamField path="REDIS_HOST" type="string" default="redis">
+  Redis host. Must match the Redis service name in `docker-compose.yml`.
+</ParamField>
+<ParamField path="REDIS_PORT" type="number" default="6379">
+  Redis port.
+</ParamField>
+<ParamField path="REDIS_DB" type="number" default="0">
+  Redis database index.
+</ParamField>
+<ParamField path="REDIS_PASSWORD" type="string">
+  Redis password. Empty by default in development.
+</ParamField>
+
+### Google Cloud Storage
+
+<ParamField path="GCP_BUCKET_NAME" type="string" required>
+  Bucket that stores encrypted provider credentials.
+</ParamField>
+<ParamField path="GCP_SLEDGE_PUBLIC_BUCKET" type="string" required>
+  Bucket that stores public assets, such as profile pictures.
+</ParamField>
+<ParamField path="GCP_SERVICE_ACCOUNT_JSON" type="string" required>
+  Raw JSON content of the GCP service account key.
+</ParamField>
+
+### Tooling
+
+<ParamField path="DOCS_PORT" type="number" default="8082">
+  Port of the Swagger UI (`dev` profile only).
+</ParamField>
+<ParamField path="GRAFANA_PORT" type="number" default="6767">
+  Port of the Grafana interface.
+</ParamField>
+<ParamField path="GRAFANA_ADMIN_USER" type="string" default="admin">
+  Grafana administrator username.
+</ParamField>
+<ParamField path="GRAFANA_ADMIN_PASSWORD" type="string" required>
+  Grafana administrator password.
+</ParamField>
+
+### Development accounts
+
+These variables create test accounts for each role. Use them in development only.
+
+<ParamField path="DUMMY_ADMIN_EMAIL / DUMMY_ADMIN_PASSWORD" type="string">
+  Credentials of the test `admin` account.
+</ParamField>
+<ParamField path="DUMMY_BETATESTER_EMAIL / DUMMY_BETATESTER_PASSWORD" type="string">
+  Credentials of the test `betatester` account.
+</ParamField>
+<ParamField path="DUMMY_USER_EMAIL / DUMMY_USER_PASSWORD" type="string">
+  Credentials of the test `user` account.
+</ParamField>
+
+## Frontend
+
+Set these variables in `frontend/application/.env`.
+
+<ParamField path="NEXT_PUBLIC_API_URL" type="string" required>
+  Public URL of the Go backend, for example `http://localhost:8080`. Inlined at build time.
+</ParamField>
+<ParamField path="AUTH_SECRET" type="string" required>
+  Secret used to sign NextAuth.js sessions. Generate one with `npx auth secret`.
+</ParamField>
+
+## Generate a strong password
+
+Use this Python snippet to generate random secrets:
+
+```python
+import secrets
+from string import ascii_letters, digits
+
+"".join(secrets.choice(ascii_letters + digits + "+-_?@=:!") for _ in range(32))
+```

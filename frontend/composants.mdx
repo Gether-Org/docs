@@ -1,0 +1,66 @@
+---
+title: 'Components'
+description: 'UI building blocks of the Merops application'
+icon: 'cubes'
+---
+
+The Merops interface is built from three layers of components: generic UI primitives, shared layout components, and feature components that live next to the pages that use them.
+
+## UI primitives
+
+The `src/components/ui/` folder contains components generated with [shadcn/ui](https://ui.shadcn.com/) and built on Radix UI. They provide accessible, themeable building blocks: `Button`, `Card`, `Dialog`, `Sheet`, `Select`, `Table`, `Tabs`, `Tooltip`, `Sidebar`, and more.
+
+To add a new primitive, run from `frontend/application`:
+
+```bash
+pnpm dlx shadcn@latest add <component>
+```
+
+<Note>
+Edit the generated files in `components/ui/` only when you need a project-wide change. For feature-specific styling, wrap the primitive in a feature component instead.
+</Note>
+
+## Layout components
+
+The `src/components/dashboard-ui/` folder contains the shell of every authenticated page:
+
+| Component | Role |
+| --- | --- |
+| `AppSidebar` | Main navigation: Dashboard, Providers, Bucket Migration, Bucket Synchronization |
+| `DashboardTopBar` | Top bar with breadcrumbs and user actions |
+| `Breadcrumbs` | Displays the current location from the URL |
+| `NavMain` | Collapsible navigation groups used by the sidebar |
+
+Global providers are also defined in `src/components/`: `ThemeProvider` (light and dark mode), `QueryProvider` (React Query), and `AuthSessionProvider`.
+
+## Feature components
+
+Feature components are colocated with their page in a `components/` subfolder.
+
+### Dashboard
+
+`StatCard`, `ProvidersTable`, and `RecentActivity` render the KPIs, the list of connected providers, and the audit log on the [Dashboard](/application/dashboard/accueil).
+
+### Provider canvas
+
+The [Manage](/application/dashboard/manage) page is built on **React Flow**. Its components are grouped by view in `providers/manage/components/`:
+
+| Folder | Content |
+| --- | --- |
+| `canva-ui/` | The interactive graph: `ProviderCanva`, `ProviderFlowNode`, `LocalMachineFlowNode`, `AnimatedEdge`, `CanvasControls`, and the `AddProviderMenu` radial menu |
+| `listview-ui/` | An alternative table view of providers with status badges and actions |
+| `content-ui/` | The side panel that lists buckets and previews files |
+| `export-ui/` | Export of the canvas as an image |
+
+Node positions are saved in the `user_canvas` table, so your layout persists between sessions.
+
+### Migration
+
+The [Start Migration](/application/dashboard/start-migration) page uses `ProviderSelector`, `DestinationBucketSelector`, `MigrationStepHeader`, and `FileTree` to build the two-step form and the source preview.
+
+## Conventions
+
+- Use **PascalCase** for component files and exports.
+- Keep data fetching in hooks (`src/hooks/`), not in components.
+- Style with Tailwind utility classes and the `cn()` helper from `src/lib/utils.ts`.
+- Provider logos live in `src/components/svg/` and are resolved through `src/lib/providers/icons-registry.tsx`.

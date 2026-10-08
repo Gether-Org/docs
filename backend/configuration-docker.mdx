@@ -1,0 +1,88 @@
+---
+title: 'Docker configuration'
+description: 'How the Merops backend stack is containerized'
+icon: 'docker'
+---
+
+The whole backend runs with **Docker Compose**. The configuration lives in `backend/docker-compose.yml` and reads its values from `backend/.env`.
+
+## Services
+
+| Service | Image | Purpose | Default port |
+| --- | --- | --- | --- |
+| `backend` | Built from `backend/Dockerfile` | Merops Go API | `8080` |
+| `database` | `postgres` | PostgreSQL database | `8081` |
+| `redis` | `redis:7-alpine` | Sessions and cache | `6379` |
+| `docs` | `swaggerapi/swagger-ui` | API documentation (`dev` profile only) | `8082` |
+| `grafana` | `grafana/grafana-oss` | Monitoring dashboards | `6767` |
+
+All services share the internal `sledge-network` network and reach each other by service name, for example `backend → database`.
+
+## Backend image
+
+The backend uses a multi-stage build to keep the runtime image small:
+
+```dockerfile backend/Dockerfile
+# build
+FROM golang:1.25.8-alpine AS builder
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+RUN go build -o backend ./cmd/api/main.go
+
+# runtime
+FROM alpine:3.19
+WORKDIR /app
+COPY --from=builder /app/backend .
+
+EXPOSE 8080
+CMD ["./backend"]
+```
+
+Only the compiled binary is copied into the final Alpine image. Dependencies are downloaded before the source is copied, so Docker reuses the cached layer when only the code changes.
+
+## Backend volumes
+
+| Host path | Container path | Why |
+| --- | --- | --- |
+| `/tmp/sledge-sockets` | `/tmp/sledge-sockets` | Unix sockets used by Provicol to talk to provider microservices |
+| `/var/run/docker.sock` | `/var/run/docker.sock` | Lets the backend build and start provider containers |
+| `./account_google.json` | `/app/account_google.json` (read-only) | GCP service account used to access Merops storage |
+
+<Warning>
+The backend runs with `privileged: true` and has access to the Docker socket. Only run it on a host you trust, and never expose the Docker socket to the internet.
+</Warning>
+
+## Provider microservices
+
+Each cloud provider integration (`backend/providers/amazon`, `backend/providers/google`) has its own `Dockerfile`. The backend builds and starts these containers itself, through the Docker socket. Their status is tracked in the `providers` table: `pending`, `building`, `running`, `repairing`, `failed`, or `stopped`.
+
+## Database initialization
+
+The `database` service mounts `backend/database/setup.sql` into `/docker-entrypoint-initdb.d/`. PostgreSQL runs this script once, when the data directory is created.
+
+<Tip>
+No named volume is defined for PostgreSQL. Running `docker compose down` then `up` recreates the database from `setup.sql`, which is convenient in development but erases your data.
+</Tip>
+
+## Common commands
+
+```bash
+# Start the stack
+docker compose up -d
+
+# Start the stack with the Swagger UI
+docker compose --profile dev up -d
+
+# Rebuild the backend after a code change
+docker compose up -d --build backend
+
+# Follow the backend logs
+docker compose logs -f backend
+
+# Stop everything
+docker compose down
+```

@@ -15,15 +15,28 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Introduction",
+        "tab": "Get started",
         "groups": [
           {
             "group": "Introduction",
             "pages": [
               "introduction/presentation",
               "introduction/objectifs",
-              "introduction/technologies",
-              "introduction/organisation"
+              "introduction/technologies"
+            ]
+          },
+          {
+            "group": "Get started",
+            "pages": [
+              "get-started/overview",
+              "get-started/quickstart",
+              "get-started/local-development"
+            ]
+          },
+          {
+            "group": "Community",
+            "pages": [
+              "get-started/community"
             ]
           }
         ]
@@ -38,7 +51,7 @@
               "application/register",
               "application/profil",
               {
-                "group": "dashboard",
+                "group": "Dashboard",
                 "pages": [
                   "application/dashboard/accueil",
                   "application/dashboard/manage",
@@ -53,6 +66,12 @@
         "tab": "Architecture",
         "groups": [
           {
+            "group": "Overview",
+            "pages": [
+              "architecture/overview"
+            ]
+          },
+          {
             "group": "Frontend",
             "pages": [
               "frontend/nextjs-setup",
@@ -60,14 +79,14 @@
             ]
           },
           {
-            "group": "Backend & BDD",
+            "group": "Backend & database",
             "pages": [
               "backend/configuration-docker",
               "backend/schemas-postgresql"
             ]
           },
           {
-            "group": "Deployement",
+            "group": "Deployment",
             "pages": [
               "deployement/deployement",
               "deployement/environement-variables"
@@ -81,7 +100,7 @@
           {
             "group": "Legal Documents",
             "pages": [
-              "legal/privacy_policy.md"
+              "legal/privacy_policy"
             ]
           }
         ]
@@ -91,14 +110,20 @@
   "navbar": {
     "links": [
       {
-        "label": "Dépôt GitHub",
-        "href": "https://github.com/Gether-Org/merops.git"
+        "label": "GitHub",
+        "href": "https://github.com/Gether-Org/merops"
       }
-    ]
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Join Discord",
+      "href": "https://discord.gg/kRPEZxR3V"
+    }
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/Gether-Org/merops.git"
+      "github": "https://github.com/Gether-Org/merops",
+      "discord": "https://discord.gg/kRPEZxR3V"
     }
   }
 }

@@ -1,0 +1,49 @@
+---
+title: 'Get started'
+description: 'Everything you need to start using or building Merops'
+icon: 'flag-checkered'
+---
+
+**Merops** is a cloud resource migration and synchronization platform. It lets you connect several cloud providers, explore their storage, and move or synchronize data between them from a single interface.
+
+<Tip>
+**Change clouds, not architecture.** Merops helps you leave a provider without rebuilding your infrastructure from scratch.
+</Tip>
+
+## Choose your path
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="bolt" href="/get-started/quickstart">
+    Create an account, connect your first provider, and launch a migration in a few minutes.
+  </Card>
+  <Card title="Local development" icon="terminal" href="/get-started/local-development">
+    Run the Merops backend and frontend on your machine to contribute to the project.
+  </Card>
+  <Card title="Architecture" icon="sitemap" href="/architecture/overview">
+    Understand how the frontend, the Go backend, and provider microservices work together.
+  </Card>
+  <Card title="Community" icon="discord" href="/get-started/community">
+    Join the Discord server to ask questions, report bugs, and follow the roadmap.
+  </Card>
+</CardGroup>
+
+## Key concepts
+
+<AccordionGroup>
+  <Accordion title="Provider" icon="cloud">
+    A cloud account you connect to Merops, such as Amazon AWS or Google Cloud. You add a provider by importing its credentials file.
+  </Accordion>
+  <Accordion title="Bucket" icon="bucket">
+    A storage space on a provider. Merops lists your buckets and lets you preview the objects they contain.
+  </Accordion>
+  <Accordion title="Migration" icon="paper-plane">
+    A one-time transfer of objects from a source bucket to a destination bucket, possibly on another provider.
+  </Accordion>
+  <Accordion title="Synchronization" icon="rotate">
+    A recurring job that keeps two buckets in sync at a defined interval, in one direction or both.
+  </Accordion>
+</AccordionGroup>
+
+## Supported providers
+
+Merops currently ships integrations for **Amazon AWS** and **Google Cloud**. Integrations for **Azure**, **Scaleway**, and **Outscale** are on the [roadmap](/introduction/objectifs#roadmap).

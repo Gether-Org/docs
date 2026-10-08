@@ -1,0 +1,129 @@
+---
+title: 'Local development'
+description: 'Run the Merops backend and frontend on your machine'
+icon: 'terminal'
+---
+
+This guide explains how to run the full Merops stack locally so you can develop and test changes.
+
+## Prerequisites
+
+Install the following tools:
+
+- [Git](https://git-scm.com/)
+- [Docker](https://docs.docker.com/get-docker/) and Docker Compose
+- [Node.js](https://nodejs.org/) 20 or later
+- [pnpm](https://pnpm.io/installation)
+- [Go](https://go.dev/dl/) 1.25 or later (optional, only to run the backend outside Docker)
+
+## Clone the repository
+
+```bash
+git clone https://github.com/Gether-Org/merops.git
+cd merops
+```
+
+The repository contains two main folders:
+
+| Folder | Content |
+| --- | --- |
+| `backend/` | Go API, PostgreSQL schema, provider microservices, and Docker Compose stack |
+| `frontend/` | Next.js applications: `application` (the Merops app) and `marketing` (the public website) |
+
+## Start the backend
+
+<Steps>
+  <Step title="Create your environment file">
+    ```bash
+    cd backend
+    cp .env.example .env
+    ```
+
+    Fill in the empty values, such as `GRAFANA_ADMIN_PASSWORD` and the dummy user passwords. See [Environment variables](/deployement/environement-variables) for the full reference.
+  </Step>
+  <Step title="Add your GCP service account">
+    Merops stores encrypted credentials and assets on Google Cloud Storage. Place your service account key at `backend/account_google.json`.
+
+    <Warning>
+    Never commit `account_google.json` or `.env` to the repository.
+    </Warning>
+  </Step>
+  <Step title="Start the stack">
+    ```bash
+    docker compose --profile dev up --build
+    ```
+
+    This starts the backend, PostgreSQL, Redis, Grafana, and the Swagger UI. The `dev` profile enables the API documentation service.
+  </Step>
+</Steps>
+
+Once the stack is running, the following services are available with the default `.env.example` values:
+
+| Service | URL |
+| --- | --- |
+| Backend API | `http://localhost:8080` |
+| API documentation (Swagger UI) | `http://localhost:8082` |
+| Grafana | `http://localhost:6767` |
+| PostgreSQL | `localhost:8081` |
+| Redis | `localhost:6379` |
+
+## Start the frontend
+
+<Steps>
+  <Step title="Configure the application">
+    ```bash
+    cd frontend/application
+    cp .env.example .env
+    ```
+
+    Make sure `NEXT_PUBLIC_API_URL` points to your local backend (`http://localhost:8080` by default). Generate a value for `AUTH_SECRET` with:
+
+    ```bash
+    npx auth secret
+    ```
+  </Step>
+  <Step title="Install dependencies and run">
+    ```bash
+    pnpm install
+    pnpm dev
+    ```
+
+    Open `http://localhost:3000` and sign in with one of the dummy users defined in your backend `.env`.
+  </Step>
+</Steps>
+
+<Tip>
+To work on the public website, run the same commands from `frontend/marketing`.
+</Tip>
+
+## Useful commands
+
+<CodeGroup>
+```bash Backend
+make lint        # Run golangci-lint
+make security    # Run gosec and govulncheck
+make docs        # Regenerate the Swagger specification
+```
+
+```bash Frontend
+pnpm lint        # Run ESLint
+pnpm test        # Run Vitest
+pnpm build       # Build for production
+```
+</CodeGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="The backend cannot reach the database">
+    Check that `POSTGRES_HOST` in `.env` matches the Compose service name (`database`), not `localhost`.
+  </Accordion>
+  <Accordion title="Schema changes are not applied">
+    PostgreSQL only runs `database/setup.sql` on first initialization. Recreate the container with `docker compose down` then `docker compose up --build`.
+  </Accordion>
+  <Accordion title="The frontend redirects to the login page in a loop">
+    Make sure the backend is running and `NEXT_PUBLIC_API_URL` is correct. The frontend refreshes your session through the backend `/auth/refresh` endpoint.
+  </Accordion>
+</AccordionGroup>
+
+Still stuck? Ask on our [Discord server](https://discord.gg/kRPEZxR3V).
